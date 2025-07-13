@@ -13,6 +13,7 @@ interface RButtonProps {
     light?: boolean;
 
     disabled?: boolean;
+    centered?: boolean;
 
     onClick?: () => void;
 
@@ -31,6 +32,7 @@ const RButton: React.FC<RButtonProps> = ({
     light = false,
 
     disabled = false,
+    centered = false,
 
     onClick,
 }: RButtonProps) => {
@@ -47,7 +49,7 @@ const RButton: React.FC<RButtonProps> = ({
                 ${disabled ? "opacity-50 cursor-not-allowed" : ""}
             `}
         >
-            <div className={ icon ? `flex flex-row items-center gap-2` : ``}>
+            <div className={ icon ? `flex flex-row items-center ${centered ? "justify-center" : ""} gap-2` : ``}>
                 {
                     icon && (
                         <Icon icon={icon} width={iconWidth} height={iconHeight}/>

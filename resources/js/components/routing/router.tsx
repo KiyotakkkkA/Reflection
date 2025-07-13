@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import { PublicRoute, PrivateRoute } from "./routes";
 import {
     MainPage,
+    ProfilePage,
     LoginPage,
     RegisterPage,
     EmailVerifyPage,
@@ -36,6 +37,10 @@ const privateRoutes = [
     {
         path: "/main",
         element: <MainPage />,
+    },
+    {
+        path: "/profile/:username",
+        element: <ProfilePage />,
     }
 ]
 

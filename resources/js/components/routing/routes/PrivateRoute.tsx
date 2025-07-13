@@ -22,7 +22,7 @@ const PrivateRoute = observer(({ children }: PrivateRouteProps) => {
         }
     }, [sessionData]);
 
-    if (sessionPending) {
+    if (sessionPending || !sessionData?.id) {
         return (
             <>
                 <Header />
@@ -31,7 +31,7 @@ const PrivateRoute = observer(({ children }: PrivateRouteProps) => {
         );
     }
 
-    if (!userStore.user.id) {
+    if (!sessionData?.id) {
         return <Navigate to="/auth/login" />;
     }
 

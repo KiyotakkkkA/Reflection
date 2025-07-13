@@ -24,7 +24,8 @@ const PublicRoute = observer(({ children }: PublicRouteProps) => {
         }
     }, [sessionData]);
 
-    if (verifyTokenPending || sessionPending) {
+    if (verifyTokenPending || sessionPending || !sessionData?.id) {
+        console.log("sessionData", sessionData);
         return (
             <>
                 <Header />
@@ -33,7 +34,7 @@ const PublicRoute = observer(({ children }: PublicRouteProps) => {
         );
     }
 
-    if (userStore.user.id !== null) {
+    if (sessionData?.id !== null) {
         return <Navigate to="/main" />;
     }
 

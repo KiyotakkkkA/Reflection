@@ -4,6 +4,9 @@ type User = {
     id: number | null;
     name: string | null;
     email: string | null;
+    profile_id: number | null;
+    username: string | null;
+    avatar: string | null;
 }
 
 export const userStore = new class UserStore {
@@ -12,6 +15,9 @@ export const userStore = new class UserStore {
         id: null,
         name: null,
         email: null,
+        profile_id: null,
+        username: null,
+        avatar: null,
     };
 
     constructor() {
@@ -25,4 +31,6 @@ export const userStore = new class UserStore {
     }
 }
 
-export type { User };
+export type {
+    User,
+};

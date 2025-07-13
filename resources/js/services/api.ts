@@ -68,5 +68,11 @@ export const api = {
             const response = await axios.post("/auth/reset-password", data);
             return response.data;
         },
+    },
+    profile: {
+        get: async (username: string) => {
+            const response = await axios.get(`/api/profile/${username}`);
+            return response.data;
+        },
     }
 }

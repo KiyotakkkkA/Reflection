@@ -50,7 +50,7 @@ const LoginPage = () => {
                             {error && <div className="w-full text-right">
                                 <RLink
                                     text="Забыли пароль?"
-                                    to="/auth/recovery-password"
+                                    link="/auth/recovery-password"
                                     className="text-sm text-gray-500 px-0"
                                 />
                             </div>}
@@ -97,9 +97,9 @@ const LoginPage = () => {
                             />
                         </div>
 
-                        <div>
+                        <div className="flex flex-row items-center gap-2">
                             <span className="text-sm text-gray-500">Нет аккаунта?</span>
-                            <RLink className="text-sm" text="Зарегистрироваться" to="/auth/register" />
+                            <RLink className="text-sm" text="Зарегистрироваться" link="/auth/register" />
                         </div>
                     </form>
                 </RPanel>

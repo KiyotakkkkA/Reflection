@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { RButton, RDropdown, RSidebar } from '../ui';
+import { RButton, RSidebar, RLink, RAvatar } from '../ui';
 import { userStore } from '@/store';
 import { useLogout } from '@/hooks/useAuth';
 import { observer } from 'mobx-react-lite';
@@ -9,6 +9,8 @@ const Header = observer(() => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
     const { mutate } = useLogout();
+
+    console.log(userStore.user.avatar);
 
     return (
         <header className="bg-white shadow-sm">
@@ -36,9 +38,17 @@ const Header = observer(() => {
                                 onClose={() => setIsProfileMenuOpen(false)}
                                 className="w-[150px]"
                             >
-                                <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Мой профиль</Link>
-                                <Link to="/settings" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Настройки</Link>
-                                <div className="border-t border-gray-100 my-1"></div>
+                                <div className="flex items-center mb-2">
+                                    <RAvatar src={userStore.user.avatar || ""} size="w-12 h-12" />
+                                    <div className="flex flex-col ml-2">
+                                        <span className="text-md text-gray-800 font-medium">{userStore.user.email}</span>
+                                        <span className="text-xs text-gray-500 font-medium">@{userStore.user.username}</span>
+                                    </div>
+                                </div>
+                                <div className="border-t border-gray-200 my-1"></div>
+                                <RLink icon="mdi:account" text="Мой профиль" link={`/profile/${userStore?.user.username}`} className="text-md block px-4 py-2 hover:bg-gray-100" />
+                                <RLink icon="mdi:cog" text="Настройки" link="/settings" className="text-md block px-4 py-2 hover:bg-gray-100" />
+                                <div className="border-t border-gray-200 my-1"></div>
                                 <RButton
                                     text="Выход"
                                     className="w-full"

@@ -29,7 +29,7 @@ const RegisterPage = () => {
                     <p className="text-red-500">{error}</p>
                 </div>}
                 <RPanel shadowed className="justify-center items-center">
-                    <form onSubmit={(e) => e.preventDefault()}>
+                    <form onSubmit={(e) => e.preventDefault()} className="w-full px-4">
                         <div className="mb-2">
                             <span className="text-md font-medium">Email</span>
                             <RTextInput
@@ -94,9 +94,9 @@ const RegisterPage = () => {
                             />
                         </div>
 
-                        <div>
+                        <div className="flex flex-row items-center gap-2">
                             <span className="text-sm text-gray-500">Уже есть аккаунт?</span>
-                            <RLink className="text-sm" text="Войти" to="/auth/login" />
+                            <RLink className="text-sm" text="Войти" link="/auth/login" />
                         </div>
                     </form>
                 </RPanel>

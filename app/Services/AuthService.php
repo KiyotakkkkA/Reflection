@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Exceptions\UserAlreadyExistsException;
 use App\Exceptions\InvalidCredentialsException;
+use Illuminate\Support\Str;
 
 class AuthService
 {
@@ -40,7 +41,10 @@ class AuthService
         Auth::login($user, $data['remember']);
 
         return [
-            'user' => $user->getUserData(),
+            'user' => [
+                ...$user->getUserData(),
+                "profile" => $user->profile->username,
+            ],
             'success' => true,
         ];
     }
