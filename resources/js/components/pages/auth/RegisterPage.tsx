@@ -96,7 +96,9 @@ const RegisterPage = () => {
 
                         <div className="flex flex-row items-center gap-2">
                             <span className="text-sm text-gray-500">Уже есть аккаунт?</span>
-                            <RLink className="text-sm" text="Войти" link="/auth/login" />
+                            <RLink className="text-sm" link="/auth/login">
+                                Войти
+                            </RLink>
                         </div>
                     </form>
                 </RPanel>

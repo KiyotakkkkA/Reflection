@@ -10,8 +10,6 @@ const Header = observer(() => {
 
     const { mutate } = useLogout();
 
-    console.log(userStore.user.avatar);
-
     return (
         <header className="bg-white shadow-sm">
             <div className="container mx-auto flex justify-between items-center px-4 py-3">
@@ -27,7 +25,7 @@ const Header = observer(() => {
                     </Link>
                 </div>
 
-                {userStore.user.id && (
+                {userStore.user.id ? (
                     <div>
                         <div>
                             <RButton className="flex items-center focus:outline-none" onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)} text={userStore.user.email || ""} icon="mdi:account" iconWidth={20} iconHeight={20} light />
@@ -46,8 +44,12 @@ const Header = observer(() => {
                                     </div>
                                 </div>
                                 <div className="border-t border-gray-200 my-1"></div>
-                                <RLink icon="mdi:account" text="Мой профиль" link={`/profile/${userStore?.user.username}`} className="text-md block px-4 py-2 hover:bg-gray-100" />
-                                <RLink icon="mdi:cog" text="Настройки" link="/settings" className="text-md block px-4 py-2 hover:bg-gray-100" />
+                                <RLink icon="mdi:account" link={`/profile/${userStore?.user.username}`} className="text-md block px-4 py-2 hover:bg-gray-100">
+                                    Мой профиль
+                                </RLink>
+                                <RLink icon="mdi:cog" link="/settings" className="text-md block px-4 py-2 hover:bg-gray-100">
+                                    Настройки
+                                </RLink>
                                 <div className="border-t border-gray-200 my-1"></div>
                                 <RButton
                                     text="Выход"
@@ -60,6 +62,12 @@ const Header = observer(() => {
                                 />
                             </RSidebar>
                         </div>
+                    </div>
+                ) : (
+                    <div>
+                        <RLink link="/auth/login" className="text-md block px-4 py-2" primaryOutline>
+                            Вход
+                        </RLink>
                     </div>
                 )}
             </div>

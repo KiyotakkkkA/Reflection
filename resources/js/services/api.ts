@@ -18,10 +18,22 @@ type PasswordResetFormType = {
     new_password_confirmation: string;
 };
 
+type ProfileChangingFormType = {
+    fullname: string;
+    old_username: string;
+    new_username: string;
+    phone: string;
+    telegram_link: string;
+    github_link: string;
+    vk_link: string;
+    discord_link: string;
+}
+
 export type {
     RegistrationFormType,
     LoginFormType,
     PasswordResetFormType,
+    ProfileChangingFormType,
 }
 
 export const api = {
@@ -72,6 +84,24 @@ export const api = {
     profile: {
         get: async (username: string) => {
             const response = await axios.get(`/api/profile/${username}`);
+            return response.data;
+        },
+        update: async (data: ProfileChangingFormType) => {
+            const response = await axios.put(`/api/profile/${data.old_username}`, data);
+            return response.data;
+        },
+        updateAvatar: async (data: FormData) => {
+            const response = await axios.post(`/api/profile/avatar`, data,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
+            return response.data;
+        },
+        checkUsername: async (username: string) => {
+            const response = await axios.post(`/api/profile/check-username`, { username });
             return response.data;
         },
     }

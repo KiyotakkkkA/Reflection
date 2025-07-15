@@ -4,6 +4,7 @@ type User = {
     id: number | null;
     name: string | null;
     email: string | null;
+    custom_login_set: boolean | null;
     profile_id: number | null;
     username: string | null;
     avatar: string | null;
@@ -15,6 +16,7 @@ export const userStore = new class UserStore {
         id: null,
         name: null,
         email: null,
+        custom_login_set: null,
         profile_id: null,
         username: null,
         avatar: null,
@@ -22,6 +24,10 @@ export const userStore = new class UserStore {
 
     constructor() {
         makeAutoObservable(this);
+    }
+
+    checkIfUserInHisProfile(profileUsername: string) {
+        return this.user.username === profileUsername;
     }
 
     setUser(user: User) {

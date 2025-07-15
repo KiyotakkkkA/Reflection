@@ -2,9 +2,9 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
 interface RLinkProps {
-    text: string;
     link: string;
     className?: string;
+    children?: React.ReactNode;
 
     icon?: string;
     iconHeight?: number;
@@ -21,9 +21,9 @@ interface RLinkProps {
 }
 
 const RLink: React.FC<RLinkProps> = ({
-    text,
     link,
     className = "",
+    children,
 
     icon,
     iconHeight = 20,
@@ -56,7 +56,7 @@ const RLink: React.FC<RLinkProps> = ({
                         <Icon icon={icon} width={iconWidth} height={iconHeight}/>
                     )
                 }
-                {text}
+                {children}
             </div>
         </Link>
     );

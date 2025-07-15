@@ -10,11 +10,12 @@ type BindObjectType<T> = [
 interface RTextInputProps<T> extends React.InputHTMLAttributes<HTMLInputElement> {
     placeholder: string;
     icon?: string;
+    maxLength?: number;
     type?: "text" | "password";
     bind: BindObjectType<T>;
 }
 
-const RTextInput = <T,>({placeholder, icon, type, bind}: RTextInputProps<T>) => {
+const RTextInput = <T,>({placeholder, icon, type, bind, maxLength}: RTextInputProps<T>) => {
 
     const [state, key, setState] = bind;
     const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +32,7 @@ const RTextInput = <T,>({placeholder, icon, type, bind}: RTextInputProps<T>) => 
                 placeholder={placeholder}
                 value={state[key] as string}
                 onChange={(e) => setState({...state, [key]: e.target.value})}
+                maxLength={maxLength}
                 className={`border
                     border-gray-300
                     rounded-lg

@@ -22,7 +22,7 @@ const PrivateRoute = observer(({ children }: PrivateRouteProps) => {
         }
     }, [sessionData]);
 
-    if (sessionPending || !sessionData?.id) {
+    if (sessionPending) {
         return (
             <>
                 <Header />

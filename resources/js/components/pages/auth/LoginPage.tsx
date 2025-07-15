@@ -10,6 +10,7 @@ import { useState } from "react";
 
 import { useLogin } from "@/hooks/useAuth";
 import { LoginFormType } from "@/services/api";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
 
@@ -48,11 +49,12 @@ const LoginPage = () => {
                                 type="password"
                             />
                             {error && <div className="w-full text-right">
-                                <RLink
-                                    text="Забыли пароль?"
-                                    link="/auth/recovery-password"
+                                <Link
+                                    to="/auth/recovery-password"
                                     className="text-sm text-gray-500 px-0"
-                                />
+                                >
+                                    Забыли пароль?
+                                </Link>
                             </div>}
                         </div>
 
@@ -62,7 +64,7 @@ const LoginPage = () => {
 
                         <div>
                             <RButton
-                                text="Войти"
+                                text={isPending ? "Загрузка..." : "Войти"}
                                 className="w-full mb-2"
                                 primary
                                 onClick={() => login(state)}
@@ -99,7 +101,9 @@ const LoginPage = () => {
 
                         <div className="flex flex-row items-center gap-2">
                             <span className="text-sm text-gray-500">Нет аккаунта?</span>
-                            <RLink className="text-sm" text="Зарегистрироваться" link="/auth/register" />
+                            <RLink className="text-sm" link="/auth/register">
+                                Зарегистрироваться
+                            </RLink>
                         </div>
                     </form>
                 </RPanel>

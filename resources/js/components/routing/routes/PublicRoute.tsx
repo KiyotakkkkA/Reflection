@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useVerifyToken, useGetSession } from "@/hooks/useAuth";
 import { userStore } from "@/store";
 import { useEffect } from "react";
@@ -14,9 +14,19 @@ interface PublicRouteProps {
 
 const PublicRoute = observer(({ children }: PublicRouteProps) => {
 
+    const location = useLocation();
+
     const { data: verifyTokenData, isPending: verifyTokenPending } = useVerifyToken();
 
     const { data: sessionData, isPending: sessionPending } = useGetSession();
+
+    const publicToRedirect: Record<string, string> = {
+        "/auth/login": "/main",
+        "/auth/register": "/main",
+        "/auth/verify": "/main",
+        "/auth/recovery-password": "/main",
+        "/auth/reset-password": "/main",
+    }
 
     useEffect(() => {
         if (sessionData?.id) {
@@ -24,8 +34,7 @@ const PublicRoute = observer(({ children }: PublicRouteProps) => {
         }
     }, [sessionData]);
 
-    if (verifyTokenPending || sessionPending || !sessionData?.id) {
-        console.log("sessionData", sessionData);
+    if (verifyTokenPending || sessionPending) {
         return (
             <>
                 <Header />
@@ -34,8 +43,8 @@ const PublicRoute = observer(({ children }: PublicRouteProps) => {
         );
     }
 
-    if (sessionData?.id !== null) {
-        return <Navigate to="/main" />;
+    if (sessionData?.id && publicToRedirect[location.pathname]) {
+        return <Navigate to={publicToRedirect[location.pathname]} />;
     }
 
     return <>{children}</>;

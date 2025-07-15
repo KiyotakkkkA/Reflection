@@ -145,7 +145,7 @@ class AuthController extends Controller
 
         return response()->json([
             "user" => [
-                ...($user ? $user->getUserData() : null),
+                ...($user ? $user->getUserData() : []),
                 'profile_id' => $user ? $user->profile->id : null,
                 'username' => $user ? $user->profile->username : null,
                 'avatar' => $user ? $user->profile->avatar : null,

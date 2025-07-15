@@ -16,18 +16,23 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'custom_login_set',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'temp_token',
+        'temp_token_expires_at',
     ];
+
 
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'custom_login_set' => 'boolean',
         ];
     }
 
@@ -48,6 +53,7 @@ class User extends Authenticatable
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'custom_login_set' => $this->custom_login_set,
         ];
     }
 

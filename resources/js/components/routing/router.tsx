@@ -30,6 +30,10 @@ const publicRoutes = [
     {
         path: "/auth/reset-password",
         element: <PasswordResetPage />,
+    },
+    {
+        path: "/profile/:username",
+        element: <ProfilePage />,
     }
 ]
 
@@ -37,10 +41,6 @@ const privateRoutes = [
     {
         path: "/main",
         element: <MainPage />,
-    },
-    {
-        path: "/profile/:username",
-        element: <ProfilePage />,
     }
 ]
 

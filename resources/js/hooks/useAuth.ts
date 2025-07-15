@@ -7,22 +7,19 @@ import { RegistrationFormType, LoginFormType, PasswordResetFormType } from "../s
 
 import { User } from "@/store/userStore";
 
-import axios from "axios";
+import { AxiosError } from "axios";
+
+interface ErrorResponse {
+    message: string;
+}
 
 const useRegister = () => {
 
     const navigate = useNavigate();
 
-    const [error, setError] = useState<string | null>(null);
-
-    const { mutate, isPending } = useMutation({
+    const mutation = useMutation({
         mutationFn: async (data: RegistrationFormType) => {
             return api.auth.register(data);
-        },
-        onError(error) {
-            if (axios.isAxiosError(error)) {
-                setError(error.response?.data.message);
-            }
         },
         onSuccess(data) {
             localStorage.setItem("temp_token", data.token);
@@ -30,25 +27,21 @@ const useRegister = () => {
         }
     });
 
+    const axiosError = mutation.error as AxiosError<ErrorResponse> | null;
+
     return {
-        mutate,
-        isPending,
-        error
+        mutate: mutation.mutate,
+        isPending: mutation.isPending,
+        error: axiosError?.response?.data?.message
     };
 };
 
 const useLogin = () => {
     const navigate = useNavigate();
-    const [error, setError] = useState<string | null>(null);
 
-    const { mutate, isPending } = useMutation({
+    const mutation = useMutation({
         mutationFn: async (data: LoginFormType) => {
             return api.auth.login(data);
-        },
-        onError(error) {
-            if (axios.isAxiosError(error)) {
-                setError(error.response?.data.message);
-            }
         },
         onSuccess() {
             window.location.reload();
@@ -56,10 +49,12 @@ const useLogin = () => {
         }
     });
 
+    const axiosError = mutation.error as AxiosError<ErrorResponse> | null;
+
     return {
-        mutate,
-        isPending,
-        error
+        mutate: mutation.mutate,
+        isPending: mutation.isPending,
+        error: axiosError?.response?.data?.message
     };
 };
 
@@ -79,19 +74,13 @@ const useVerifyToken = () => {
 
 const useVerifyEmail = () => {
     const navigate = useNavigate();
-    const [error, setError] = useState<string | null>(null);
 
-    const { mutate, isPending } = useMutation({
+    const mutation = useMutation({
         mutationFn: async (code: string) => {
             return api.auth.verifyEmail({
                 token: localStorage.getItem("temp_token")!,
                 code: code
             });
-        },
-        onError(error) {
-            if (axios.isAxiosError(error)) {
-                setError(error.response?.data.message);
-            }
         },
         onSuccess() {
             localStorage.removeItem("temp_token");
@@ -99,31 +88,28 @@ const useVerifyEmail = () => {
         }
     });
 
+    const axiosError = mutation.error as AxiosError<ErrorResponse> | null;
+
     return {
-        mutate,
-        isPending,
-        error
+        mutate: mutation.mutate,
+        isPending: mutation.isPending,
+        error: axiosError?.response?.data?.message
     };
 };
 
 const useSendVerificationCode = () => {
-    const [error, setError] = useState<string | null>(null);
-
-    const { mutate, isPending } = useMutation({
+    const mutation = useMutation({
         mutationFn: async () => {
             return api.auth.sendVerificationCode(localStorage.getItem("temp_token")!);
         },
-        onError(error) {
-            if (axios.isAxiosError(error)) {
-                setError(error.response?.data.message);
-            }
-        }
     });
 
+    const axiosError = mutation.error as AxiosError<ErrorResponse> | null;
+
     return {
-        mutate,
-        isPending,
-        error
+        mutate: mutation.mutate,
+        isPending: mutation.isPending,
+        error: axiosError?.response?.data?.message
     };
 };
 
@@ -160,55 +146,46 @@ const useLogout = () => {
 };
 
 const useRecoveryPassword = () => {
-    const navigate = useNavigate();
-    const [error, setError] = useState<string | null>(null);
     const [instruction, setInstruction] = useState<string | null>(null);
 
-    const { mutate, isPending } = useMutation({
+    const mutation = useMutation({
         mutationFn: async (data: { email: string }) => {
             return api.auth.recoveryPassword(data);
-        },
-        onError(error) {
-            if (axios.isAxiosError(error)) {
-                setError(error.response?.data.message);
-            }
         },
         onSuccess(data) {
             setInstruction(data.message);
         }
     });
 
+    const axiosError = mutation.error as AxiosError<ErrorResponse> | null;
+
     return {
-        mutate,
-        isPending,
+        mutate: mutation.mutate,
+        isPending: mutation.isPending,
         instruction,
-        error,
+        error: axiosError?.response?.data?.message,
     };
 };
 
 const useResetPassword = () => {
-    const [error, setError] = useState<string | null>(null);
     const [instruction, setInstruction] = useState<string | null>(null);
 
-    const { mutate, isPending } = useMutation({
+    const mutation = useMutation({
         mutationFn: async (data: PasswordResetFormType) => {
             return api.auth.resetPassword(data);
-        },
-        onError(error) {
-            if (axios.isAxiosError(error)) {
-                setError(error.response?.data.message);
-            }
         },
         onSuccess(data) {
             setInstruction(data.message);
         }
     });
 
+    const axiosError = mutation.error as AxiosError<ErrorResponse> | null;
+
     return {
-        mutate,
-        isPending,
+        mutate: mutation.mutate,
+        isPending: mutation.isPending,
         instruction,
-        error,
+        error: axiosError?.response?.data?.message,
     };
 };
 
