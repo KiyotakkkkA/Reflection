@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\ImageUploadRequest;
 use App\Services\ProfileService;
+use App\Exceptions\InvalidCredentialsException;
+use App\Exceptions\UsernameWasAlreadyChangedWithThisProfileException;
 
 class ProfileController extends Controller
 {
@@ -36,18 +38,29 @@ class ProfileController extends Controller
     public function updateProfile(ProfileRequest $request)
     {
 
-        return response()->json($this->profileService->updateProfile($request->only(
-            [
-                'old_username',
-                'new_username',
-                'fullname',
-                'phone',
-                'telegram_link',
-                'github_link',
-                'vk_link',
-                'discord_link',
-            ]
-        )));
+        try {
+            return response()->json($this->profileService->updateProfile($request->only(
+                [
+                    'old_username',
+                    'new_username',
+                    'fullname',
+                    'phone',
+                    'about',
+                    'telegram_link',
+                    'github_link',
+                    'vk_link',
+                    'discord_link',
+                ]
+            )));
+        } catch (InvalidCredentialsException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 401);
+        } catch (UsernameWasAlreadyChangedWithThisProfileException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 401);
+        }
     }
 
     public function updateAvatar(ImageUploadRequest $request)
@@ -55,9 +68,15 @@ class ProfileController extends Controller
 
         $file = $request->file('image');
 
-        return response()->json($this->profileService->updateAvatar([
-            'image' => $file,
-            'username' => $request->username,
-        ]));
+        try {
+            return response()->json($this->profileService->updateAvatar([
+                'image' => $file,
+                'username' => $request->username,
+            ]));
+        } catch (InvalidCredentialsException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 401);
+        }
     }
 }

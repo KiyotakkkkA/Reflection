@@ -1,4 +1,3 @@
-import Header from "../../layouts/Header";
 import {
     RTextInput,
     RButton,
@@ -21,14 +20,13 @@ const RegisterPage = () => {
     const { mutate: register, isPending, error } = useRegister();
 
     return (
-        <>
-            <Header />
+        <div>
             <div className="flex flex-col justify-center items-center mt-40">
                 <h1 className="text-2xl font-bold mb-4">РЕГИСТРАЦИЯ</h1>
                 {error && <div className="mb-2 w-[300px] text-center bg-red-100 px-2 py-1 rounded-md border-red-500 border">
                     <p className="text-red-500">{error}</p>
                 </div>}
-                <RPanel shadowed className="justify-center items-center">
+                <RPanel shadowed bordered className="justify-center items-center">
                     <form onSubmit={(e) => e.preventDefault()} className="w-full px-4">
                         <div className="mb-2">
                             <span className="text-md font-medium">Email</span>
@@ -103,7 +101,7 @@ const RegisterPage = () => {
                     </form>
                 </RPanel>
             </div>
-        </>
+        </div>
     );
 };
 

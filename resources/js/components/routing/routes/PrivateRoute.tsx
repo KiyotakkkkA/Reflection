@@ -6,7 +6,6 @@ import { observer } from "mobx-react-lite";
 import {
     RAnimatedLoader,
 } from "@/components/ui";
-import Header from "@/components/layouts/Header";
 
 interface PrivateRouteProps {
     children: React.ReactNode;
@@ -24,10 +23,9 @@ const PrivateRoute = observer(({ children }: PrivateRouteProps) => {
 
     if (sessionPending) {
         return (
-            <>
-                <Header />
+            <div className="min-h-screen">
                 <RAnimatedLoader className="mt-40" />
-            </>
+            </div>
         );
     }
 
@@ -35,7 +33,7 @@ const PrivateRoute = observer(({ children }: PrivateRouteProps) => {
         return <Navigate to="/auth/login" />;
     }
 
-    return <>{children}</>;
+    return <div className="min-h-screen">{children}</div>;
 });
 
 export default PrivateRoute;

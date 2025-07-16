@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import Header from "@/components/layouts/Header";
 import { RButton, RPanel } from "@/components/ui";
 import { useSendVerificationCode, useVerifyEmail } from "@/hooks/useAuth";
 
@@ -124,8 +123,7 @@ const EmailVerification = () => {
     };
 
     return (
-        <>
-            <Header />
+        <div>
             <div className="flex flex-col justify-center items-center mt-40">
                 <h1 className="text-2xl font-bold mb-4">ПОДТВЕРЖДЕНИЕ ПОЧТЫ</h1>
                 {sendVerificationCodeError && <div className="mb-2 w-[300px] text-center bg-red-100 px-2 py-1 rounded-md border-red-500 border">
@@ -134,7 +132,7 @@ const EmailVerification = () => {
                 {verifyEmailError && <div className="mb-2 w-[300px] text-center bg-red-100 px-2 py-1 rounded-md border-red-500 border">
                     <p className="text-red-500">{verifyEmailError}</p>
                 </div>}
-                <RPanel shadowed className="w-[400px]">
+                <RPanel shadowed bordered className="w-[400px]">
                     <form className="p-6" onSubmit={(e) => e.preventDefault()}>
                         <div className="flex justify-center gap-2 mb-6">
                             {code.map((digit, index) => (
@@ -178,7 +176,7 @@ const EmailVerification = () => {
                     </form>
                 </RPanel>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -17,6 +17,7 @@ class Profile extends Model
         'github_link',
         'vk_link',
         'discord_link',
+        'about',
     ];
 
     public function user() {

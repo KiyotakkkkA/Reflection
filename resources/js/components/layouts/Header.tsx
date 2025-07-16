@@ -1,6 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { RButton, RSidebar, RLink, RAvatar } from '../ui';
+import {
+    RButton,
+    RSidebar,
+    RLink,
+    RAvatar,
+    RLogo
+} from '../ui';
 import { userStore } from '@/store';
 import { useLogout } from '@/hooks/useAuth';
 import { observer } from 'mobx-react-lite';
@@ -14,15 +19,7 @@ const Header = observer(() => {
         <header className="bg-white shadow-sm">
             <div className="container mx-auto flex justify-between items-center px-4 py-3">
                 <div className="flex items-center space-x-3">
-                    <Link to="/main" className="flex items-center">
-                        <svg className="h-8 w-8 text-black" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M12 12L12 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M12 12L20 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M12 12L4 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <span className="ml-2 text-xl font-bold text-gray-800">Reflection</span>
-                    </Link>
+                    <RLogo withText />
                 </div>
 
                 {userStore.user.id ? (

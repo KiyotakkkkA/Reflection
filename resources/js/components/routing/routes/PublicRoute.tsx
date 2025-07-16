@@ -6,7 +6,6 @@ import { observer } from "mobx-react-lite";
 import {
     RAnimatedLoader,
 } from "@/components/ui";
-import Header from "@/components/layouts/Header";
 
 interface PublicRouteProps {
     children: React.ReactNode;
@@ -36,10 +35,9 @@ const PublicRoute = observer(({ children }: PublicRouteProps) => {
 
     if (verifyTokenPending || sessionPending) {
         return (
-            <>
-                <Header />
+            <div className="min-h-screen">
                 <RAnimatedLoader className="mt-40" />
-            </>
+            </div>
         );
     }
 
@@ -47,7 +45,7 @@ const PublicRoute = observer(({ children }: PublicRouteProps) => {
         return <Navigate to={publicToRedirect[location.pathname]} />;
     }
 
-    return <>{children}</>;
+    return <div className="min-h-screen">{children}</div>;
 });
 
 export default PublicRoute;

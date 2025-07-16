@@ -1,4 +1,3 @@
-import Header from "../../layouts/Header";
 import {
     RTextInput,
     RButton,
@@ -23,14 +22,13 @@ const LoginPage = () => {
     const { mutate: login, isPending, error } = useLogin();
 
     return (
-        <>
-            <Header />
+        <div>
             <div className="flex flex-col justify-center items-center mt-40">
                 <h1 className="text-2xl font-bold mb-4">ВХОД</h1>
                 {error && <div className="mb-2 w-[300px] text-center bg-red-100 px-2 py-1 rounded-md border-red-500 border">
                     <p className="text-red-500">{error}</p>
                 </div>}
-                <RPanel shadowed className="justify-center items-center">
+                <RPanel shadowed bordered className="justify-center items-center">
                     <form onSubmit={(e) => e.preventDefault()}>
                         <div className="mb-2">
                             <span className="text-md font-medium">Email</span>
@@ -108,7 +106,7 @@ const LoginPage = () => {
                     </form>
                 </RPanel>
             </div>
-        </>
+        </div>
     );
 };
 

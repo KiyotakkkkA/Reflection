@@ -4,7 +4,10 @@ import RRadio from "./atoms/RRadio";
 import RCheck from "./atoms/RCheck";
 import RAnimatedLoader from "./atoms/RAnimatedLoader";
 import RTextInput from "./atoms/RTextInput";
+import RTextArea from "./atoms/RTextArea";
 import RStatusSpan from "./atoms/RStatusSpan";
+import RLogo from "./atoms/RLogo";
+import RHorizontalLine from "./atoms/RHorizontalLine";
 import RAvatar from "./atoms/RAvatar";
 import RPanel from "./containers/RPanel";
 import RDropdown from "./containers/RDropdown";
@@ -18,7 +21,10 @@ export {
     RCheck,
     RAnimatedLoader,
     RTextInput,
+    RTextArea,
     RStatusSpan,
+    RLogo,
+    RHorizontalLine,
     RAvatar,
     RPanel,
     RDropdown,

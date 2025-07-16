@@ -3,15 +3,16 @@ interface RPanelProps {
     className?: string;
 
     shadowed?: boolean;
+    bordered?: boolean;
 }
 
-const RPanel: React.FC<RPanelProps> = ({children, shadowed = false, className = ""}) => {
+const RPanel: React.FC<RPanelProps> = ({children, shadowed = false, className = "", bordered = false}) => {
     return (
         <div className={`
             flex mt-4
             ${shadowed ? "shadow-lg" : ""}
             rounded-lg w-[300px] px-2 py-4
-            border border-light-border dark:border-dark-border
+            ${bordered ? "border border-light-border dark:border-dark-border" : ""}
             ${className}
         `}>
             {children}

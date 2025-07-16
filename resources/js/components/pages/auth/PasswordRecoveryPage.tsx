@@ -2,8 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { RButton, RPanel, RTextInput } from "@/components/ui";
 import { useRecoveryPassword } from "@/hooks/useAuth";
 
-import Header from "@/components/layouts/Header";
-
 const TIMER_KEY = "recoveryCodeTimerEndTime";
 
 const PasswordRecoveryPage = () => {
@@ -81,8 +79,7 @@ const PasswordRecoveryPage = () => {
     };
 
     return (
-        <>
-            <Header />
+        <div>
             <div className="flex flex-col justify-center items-center mt-40">
                 <h1 className="text-2xl font-bold mb-4">ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h1>
                 {recoveryPasswordError && <div className="mb-2 w-[300px] text-center bg-red-100 px-2 py-1 rounded-md border-red-500 border">
@@ -91,7 +88,7 @@ const PasswordRecoveryPage = () => {
                 {recoveryPasswordInstruction && <div className="mb-2 w-[300px] text-center bg-green-100 px-2 py-1 rounded-md border-green-500 border">
                     <p className="text-green-500">{recoveryPasswordInstruction}</p>
                 </div>}
-                <RPanel shadowed className="w-[300px]">
+                <RPanel shadowed bordered className="w-[300px]">
                     <form onSubmit={(e) => e.preventDefault()}>
                         <div className="mb-4">
                             <span className="text-md font-medium">Email</span>
@@ -113,7 +110,7 @@ const PasswordRecoveryPage = () => {
                     </form>
                 </RPanel>
             </div>
-        </>
+        </div>
     );
 };
 

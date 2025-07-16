@@ -10,6 +10,9 @@ import {
     PasswordResetPage,
 } from "../pages";
 
+import Footer from "../layouts/Footer";
+import Header from "../layouts/Header";
+
 const publicRoutes = [
     {
         path: "/auth/login",
@@ -47,6 +50,7 @@ const privateRoutes = [
 const MRouter: React.FC = () => {
     return (
         <Router>
+            <Header />
             <Routes>
                 {privateRoutes.map((route, index) => (
                     <Route
@@ -72,6 +76,7 @@ const MRouter: React.FC = () => {
                 ))}
                 <Route path="*" element={<Navigate to="/auth/login" />} />
             </Routes>
+            <Footer />
         </Router>
     );
 };

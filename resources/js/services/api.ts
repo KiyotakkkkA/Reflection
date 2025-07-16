@@ -27,6 +27,7 @@ type ProfileChangingFormType = {
     github_link: string;
     vk_link: string;
     discord_link: string;
+    about: string;
 }
 
 export type {

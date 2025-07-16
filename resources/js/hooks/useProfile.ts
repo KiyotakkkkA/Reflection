@@ -17,6 +17,7 @@ type Profile = {
     patronymic: string | null;
     phone: string | null;
     avatar: string | null;
+    about: string | null;
 
     telegram_link: string | null;
     github_link: string | null;

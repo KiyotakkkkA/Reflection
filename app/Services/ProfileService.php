@@ -56,6 +56,7 @@ class ProfileService
             'username' => $user->custom_login_set ? $oldUsername : $data['new_username'],
             'fullname' => $data['fullname'] ?? $profile->fullname,
             'phone' => $data['phone'],
+            'about' => $data['about'],
             'telegram_link' => $data['telegram_link'],
             'github_link' => $data['github_link'],
             'vk_link' => $data['vk_link'],
