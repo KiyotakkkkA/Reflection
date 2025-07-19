@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Session;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Services\MailService;
-use App\Services\ProfileService;
+use App\Services\Profile\ProfileService;
 use App\Exceptions\UserAlreadyVerifiedException;
 use App\Exceptions\InvalidCredentialsException;
 use App\Exceptions\UserNotFoundOrTimeIsOut;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Session;
 
 use App\Models\User;
 use App\Services\MailService;

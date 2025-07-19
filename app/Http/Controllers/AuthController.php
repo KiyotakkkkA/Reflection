@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Services\AuthService;
-use App\Services\RecoveryPasswordService;
-use App\Services\EmailVerificationService;
+use App\Services\Session\AuthService;
+use App\Services\Session\RecoveryPasswordService;
+use App\Services\Session\EmailVerificationService;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Http\Requests\Auth\PassRecoveryRequest;

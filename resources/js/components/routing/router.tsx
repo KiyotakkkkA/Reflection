@@ -3,6 +3,8 @@ import { PublicRoute, PrivateRoute } from "./routes";
 import {
     MainPage,
     ProfilePage,
+    ProfileFollowersPage,
+    ProfileFollowingsPage,
     LoginPage,
     RegisterPage,
     EmailVerifyPage,
@@ -37,6 +39,14 @@ const publicRoutes = [
     {
         path: "/profile/:username",
         element: <ProfilePage />,
+    },
+    {
+        path: "/profile/:username/followers",
+        element: <ProfileFollowersPage />,
+    },
+    {
+        path: "/profile/:username/followings",
+        element: <ProfileFollowingsPage />,
     }
 ]
 

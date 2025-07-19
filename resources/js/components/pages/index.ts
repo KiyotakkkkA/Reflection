@@ -5,8 +5,10 @@ import PasswordRecoveryPage from "./auth/PasswordRecoveryPage";
 import PasswordResetPage from "./auth/PasswordResetPage";
 
 import MainPage from "./MainPage";
-import ProfilePage from "./ProfilePage";
 
+import ProfilePage from "./profile/ProfilePage";
+import ProfileFollowersPage from "./profile/ProfileFollowersPage";
+import ProfileFollowingsPage from "./profile/ProfileFollowingsPage";
 
 export {
     LoginPage,
@@ -16,5 +18,8 @@ export {
     PasswordResetPage,
 
     MainPage,
+
     ProfilePage,
+    ProfileFollowersPage,
+    ProfileFollowingsPage,
 };

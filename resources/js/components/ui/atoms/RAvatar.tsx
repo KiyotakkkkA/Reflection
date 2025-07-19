@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect, memo } from 'react';
 import { Icon } from '@iconify/react';
 
 interface RAvatarProps {
@@ -7,11 +7,10 @@ interface RAvatarProps {
     size?: string;
     isChanging?: boolean;
     onChange?: (file: File) => void;
-
     circle?: boolean;
 }
 
-const RAvatar: React.FC<RAvatarProps> = ({
+const RAvatar: React.FC<RAvatarProps> = memo(({
     src,
     className = '',
     size = 'w-12 h-12',
@@ -20,16 +19,22 @@ const RAvatar: React.FC<RAvatarProps> = ({
     circle = false,
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const borderRadiusClass = circle ? 'rounded-full' : 'rounded-md';
+
+    useEffect(() => {
+        setIsLoading(true);
+    }, [src]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.[0]) {
-          const file = e.target.files[0];
-          onChange?.(file);
+            const file = e.target.files[0];
+            onChange?.(file);
         }
     };
 
     return (
-        <>
+        <div key={src}>
             <input
                 disabled={!isChanging}
                 type="file"
@@ -42,24 +47,26 @@ const RAvatar: React.FC<RAvatarProps> = ({
             <div
                 onClick={() => fileInputRef.current?.click()}
                 className={`
-                    relative ${circle ? 'rounded-full' : 'rounded-md'} overflow-hidden ${size} ${className}
+                    relative ${borderRadiusClass} overflow-hidden ${size} ${className}
                     group
                     ${isChanging ? 'custom-pulse cursor-pointer' : ''}
                 `}
             >
                 <img
                     src={src}
-                    alt="Avatar"
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}`}
+                    onLoad={() => setIsLoading(false)}
+                    onError={() => setIsLoading(false)}
                 />
+
                 {isChanging && (
-                    <div className="
+                    <div className={`
                         absolute inset-0 bg-black bg-opacity-30 opacity-0
                         group-hover:opacity-100
                         transition-opacity duration-300
                         pointer-events-none
-                        ${circle ? 'rounded-full' : 'rounded-md'}
-                    ">
+                        ${borderRadiusClass}
+                    `}>
                         <Icon
                             icon="mdi:pencil"
                             className="w-6 h-6 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -84,8 +91,8 @@ const RAvatar: React.FC<RAvatarProps> = ({
                     z-index: 1;
                 }
             `}</style>
-        </>
+        </div>
     );
-};
+});
 
 export default RAvatar;

@@ -42,12 +42,12 @@ const RLink: React.FC<RLinkProps> = ({
         <Link
             to={link}
             onClick={onClick}
-            className={`px-4 py-2 rounded-md transition-colors duration-300
+            className={`rounded-md transition-colors duration-300
                 ${className}
-                ${primary ? "bg-black border border-black text-white hover:bg-white hover:text-black" : ""}
-                ${primaryOutline ? "border border-black hover:bg-black hover:text-white" : ""}
-                ${light ? "hover:bg-gray-100" : ""}
-                ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+                ${primary ? "px-4 py-2 bg-black border border-black text-white hover:bg-white hover:text-black" : ""}
+                ${primaryOutline ? "px-4 py-2 border border-black hover:bg-black hover:text-white" : ""}
+                ${light ? "px-4 py-2 hover:bg-gray-100" : ""}
+                ${disabled ? "px-4 py-2 opacity-50 cursor-not-allowed" : ""}
             `}
         >
             <div className={ icon ? `flex flex-row items-center gap-2` : ``}>

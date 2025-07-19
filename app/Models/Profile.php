@@ -20,7 +20,34 @@ class Profile extends Model
         'about',
     ];
 
+    public $appends = [
+        'followers_count',
+        'followings_count',
+    ];
+
+    public function checkUserIsFollowed($userId) {
+        return $this->followers()->where('user_id', $userId)->exists();
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function followers() {
+        return $this->belongsToMany(Profile::class, 'follow_profiles', 'user_profile_id', 'follower_profile_id');
+    }
+
+    public function followings() {
+        return $this->belongsToMany(Profile::class, 'follow_profiles', 'follower_profile_id', 'user_profile_id');
+    }
+
+    public function getFollowersCountAttribute()
+    {
+        return $this->attributes['followers_count'] ?? $this->followers()->count();
+    }
+
+    public function getFollowingsCountAttribute()
+    {
+        return $this->attributes['followings_count'] ?? $this->followings()->count();
     }
 }

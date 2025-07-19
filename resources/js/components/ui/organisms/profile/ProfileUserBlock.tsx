@@ -1,4 +1,5 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 import {
     RPanel,
     RAvatar,
@@ -7,20 +8,24 @@ import {
     RHorizontalLine
 } from "@/components/ui";
 import { userStore } from "@/store";
-import { ProfileChangingFormType } from "@/services/api";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
+import { Profile } from "@/hooks/useProfile";
+import {
+    useFollow,
+    useUnfollow,
+} from "@/hooks/useProfile";
 
 interface ProfileUserBlockProps {
     avatar: string;
     updateAvatar: (file: File) => void;
     updateAvatarError: string | null;
-    data: any;
+    data: Profile;
     isChanging: boolean;
     setIsChanging: (value: boolean) => void;
     loginCorrect: boolean;
     updateProfile: () => void;
     clearChangingForm: () => void;
-    changingForm: ProfileChangingFormType;
     staticImages: {
         icon: {
             telegram: string;
@@ -31,7 +36,7 @@ interface ProfileUserBlockProps {
     };
 }
 
-export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = ({
+export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = observer(({
     avatar,
     updateAvatar,
     updateAvatarError,
@@ -41,10 +46,20 @@ export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = ({
     loginCorrect,
     updateProfile,
     clearChangingForm,
-    changingForm,
     staticImages,
 }) => {
     const userInHisProfile = userStore.checkIfUserInHisProfile(data?.username as string);
+
+    const { mutate: followMutation, isPending: isFollowPending } = useFollow();
+    const { mutate: unfollowMutation, isPending: isUnfollowPending } = useUnfollow();
+
+    const follow = () => {
+        followMutation(data?.username as string);
+    };
+
+    const unfollow = () => {
+        unfollowMutation(data?.username as string);
+    };
 
     return (
         <div className="flex flex-col ml-4">
@@ -55,6 +70,7 @@ export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = ({
                     </div>
                 )}
                 <RAvatar
+                    key={avatar}
                     isChanging={isChanging}
                     src={avatar}
                     size="w-70 h-70"
@@ -67,6 +83,30 @@ export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = ({
                 </div>
                 <div className="mt-2 text-muted">
                     @{data?.username}
+                </div>
+                <div>
+                    <RHorizontalLine className="mt-2 mb-2"/>
+                    <div className="flex flex-row gap-2">
+                        <div className="flex flex-row items-center gap-1">
+                            <Icon icon="mdi:account-multiple" width={16} height={16} />
+                            <p className="text-muted text-sm">
+                                <Link to={"/profile/" + data?.username + "/followers"} className="w-full hover:underline">
+                                    Подписчиков: {data?.followers_count}
+                                </Link>
+                            </p>
+                        </div>
+                        <div className="text-muted text-sm">
+                            |
+                        </div>
+                        <div className="flex flex-row items-center gap-1">
+                            <Icon icon="mdi:account-multiple-outline" width={16} height={16} />
+                            <p className="text-muted text-sm">
+                                <Link to={"/profile/" + data?.username + "/followings"} className="w-full hover:underline">
+                                    Подписок: {data?.followings_count}
+                                </Link>
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 {userInHisProfile && (
                     <>
@@ -122,6 +162,38 @@ export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = ({
                             </div>
                         )}
                     </>
+                )}
+                {userStore?.user.id && !userInHisProfile && (
+                    <div>
+                        <RHorizontalLine className="mt-2 mb-2"/>
+                        {
+                            data?.is_current_user_followed ? (
+                                <RButton
+                                    icon="mdi:minus-box-outline"
+                                    iconWidth={20}
+                                    iconHeight={20}
+                                    text={isUnfollowPending ? "Отписка..." : "Отписаться"}
+                                    disabled={isUnfollowPending}
+                                    primaryOutline
+                                    centered
+                                    className="mt-2 w-full"
+                                    onClick={unfollow}
+                                />
+                            ) : (
+                                <RButton
+                                    icon="mdi:plus"
+                                    iconWidth={20}
+                                    iconHeight={20}
+                                    text={isFollowPending ? "Подписка..." : "Подписаться"}
+                                    disabled={isFollowPending}
+                                    primary
+                                    centered
+                                    className="mt-2 w-full"
+                                    onClick={follow}
+                                />
+                            )
+                        }
+                    </div>
                 )}
             </RPanel>
 
@@ -200,7 +272,7 @@ export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = ({
             )}
         </div>
     );
-};
+});
 
 export default ProfileUserBlock;
 

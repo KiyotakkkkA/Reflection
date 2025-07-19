@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Profile;
 
 use Illuminate\Support\Str;
 use App\Models\Profile;
@@ -30,7 +30,17 @@ class ProfileService
 
     public function getProfile($username) {
         $profile = Profile::where('username', $username)->first();
-        return $profile;
+
+        if (Auth::check()) {
+            $isCurrentUserFollowed = $profile == null ? false : $profile->checkUserIsFollowed(Auth::user()->id);
+        } else {
+            $isCurrentUserFollowed = false;
+        }
+
+        return [
+            ...($profile->toArray() ?? []),
+            'is_current_user_followed' => $isCurrentUserFollowed,
+        ];
     }
 
     public function checkUsername($username) {

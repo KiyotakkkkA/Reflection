@@ -92,7 +92,7 @@ export const api = {
             return response.data;
         },
         updateAvatar: async (data: FormData) => {
-            const response = await axios.post(`/api/profile/avatar`, data,
+            const response = await axios.post(`/api/profile/${data.get('username')}/avatar`, data,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -102,7 +102,24 @@ export const api = {
             return response.data;
         },
         checkUsername: async (username: string) => {
-            const response = await axios.post(`/api/profile/check-username`, { username });
+            const response = await axios.post(`/api/profile/${username}/check-username`, { username });
+            return response.data;
+        },
+
+        follow: async (username: string) => {
+            const response = await axios.post(`/api/profile/${username}/follow`, { username });
+            return response.data;
+        },
+        unfollow: async (username: string) => {
+            const response = await axios.post(`/api/profile/unfollow`, { username });
+            return response.data;
+        },
+        getFollowersList: async (username: string) => {
+            const response = await axios.get(`/api/profile/${username}/followers`);
+            return response.data;
+        },
+        getFollowingsList: async (username: string) => {
+            const response = await axios.get(`/api/profile/${username}/followings`);
             return response.data;
         },
     }

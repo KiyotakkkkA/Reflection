@@ -1,21 +1,27 @@
 import {
     RPanel,
     RAnimatedLoader,
-} from "../ui";
+} from "../../ui";
 import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 import {
     useProfile,
     useCheckUsername,
     useUpdateProfile,
-    useUpdateAvatar
+    useUpdateAvatar,
+    useFollowers,
+    useFollowings,
 } from "@/hooks/useProfile";
 import { ProfileChangingFormType } from "@/services/api";
 import { userStore } from "@/store";
 import { useState, useEffect, useCallback } from "react";
-import { ProfileEditForm, ProfileUserBlock } from "../ui/organisms/profile";
+import {
+    ProfileEditForm,
+    ProfileFollowsBlock,
+    ProfileUserBlock
+} from "../../ui/organisms/profile";
 
-const ProfilePage = observer(() => {
+const ProfileFollowersPage = observer(() => {
 
     const staticImages = {
         icon: {
@@ -45,6 +51,8 @@ const ProfilePage = observer(() => {
         error: updateAvatarError,
         reset: updateAvatarReset } = useUpdateAvatar();
 
+    const { data: followersData, isPending: followersIsPending } = useFollowers(username as string);
+
     const [isChanging, setIsChanging] = useState(false);
     const [loginCorrect, setLoginCorrect] = useState(false);
     const [changingForm, setChangingForm] = useState<ProfileChangingFormType>({
@@ -60,6 +68,14 @@ const ProfilePage = observer(() => {
     });
 
     const userInHisProfile = userStore.checkIfUserInHisProfile(data?.username as string);
+
+    const [followers, setFollowers] = useState([]);
+
+    useEffect(() => {
+        if (followersData) {
+            setFollowers(followersData);
+        }
+    }, [followersData]);
 
     useEffect(() => {
         if (checkUsernameData) {
@@ -160,7 +176,7 @@ const ProfilePage = observer(() => {
     }
 
     return (
-        <div>
+        <div key={data?.username}>
             <div className="flex">
                 <ProfileUserBlock
                     avatar={avatar}
@@ -172,14 +188,15 @@ const ProfilePage = observer(() => {
                     loginCorrect={loginCorrect}
                     updateProfile={updateProfile}
                     clearChangingForm={clearChangingForm}
-                    changingForm={changingForm}
                     staticImages={staticImages}
                 />
                 <div className="grid grid-cols-4 gap-4 px-4 w-full">
                     <div className={`${isChanging ? "col-span-3 col-start-2" : "col-span-4 col-start-1"} row-start-1 flex flex-col`}>
                         <RPanel className="w-full" shadowed bordered>
-                            <div>
-                            </div>
+                            <ProfileFollowsBlock
+                                data={followers}
+                                isLoading={followersIsPending}
+                            />
                         </RPanel>
                     </div>
                     <div className={`${isChanging && userInHisProfile ? "col-span-1 col-start-1" : "hidden"} row-start-1 flex flex-col`}>
@@ -204,5 +221,5 @@ const ProfilePage = observer(() => {
     );
 });
 
-export default ProfilePage;
+export default ProfileFollowersPage;
 
