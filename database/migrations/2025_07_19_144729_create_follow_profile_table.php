@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('follow_profiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_profile_id');
-            $table->unsignedBigInteger('follower_profile_id');
+            $table->unsignedBigInteger('from_profile_id');
+            $table->unsignedBigInteger('to_profile_id');
             $table->timestamps();
 
-            $table->unique(['user_profile_id', 'follower_profile_id']);
-            $table->foreign('user_profile_id')->references('id')->on('profiles')->onDelete('cascade');
-            $table->foreign('follower_profile_id')->references('id')->on('profiles')->onDelete('cascade');
+            $table->unique(['from_profile_id', 'to_profile_id']);
+            $table->foreign('from_profile_id')->references('id')->on('profiles')->onDelete('cascade');
+            $table->foreign('to_profile_id')->references('id')->on('profiles')->onDelete('cascade');
         });
     }
 

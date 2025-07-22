@@ -4,43 +4,53 @@ namespace App\Services\Profile;
 
 use App\Models\Profile;
 use App\Exceptions\UserNotFoundOrTimeIsOut;
+use Illuminate\Support\Facades\Auth;
 
 class FollowingSystemService
 {
 
-    public function getFollowingsList($username)
-    {
+    public function getFollowingsList($username) {
+        // Подписки
+
         $profile = Profile::where('username', $username)->first();
 
         if (!$profile) {
             throw new UserNotFoundOrTimeIsOut();
         }
 
-        return $profile->followings()->select([
-            'profiles.fullname',
-            'profiles.username',
-            'profiles.avatar'
-        ])->get();
+        $followings = $profile->followings()
+            ->select([
+                'profiles.fullname',
+                'profiles.username',
+                'profiles.avatar'
+            ])
+            ->get();
+
+        return $followings;
     }
 
-    public function getFollowersList($username)
-    {
+    public function getFollowersList($username) {
+        // Подписчики
+
         $profile = Profile::where('username', $username)->first();
 
         if (!$profile) {
             throw new UserNotFoundOrTimeIsOut();
         }
 
-        return $profile->followers()->select([
-            'profiles.fullname',
-            'profiles.username',
-            'profiles.avatar'
-        ])->get();
+        $followers = $profile->followers()
+            ->select([
+                'profiles.fullname',
+                'profiles.username',
+                'profiles.avatar'
+            ])
+            ->get();
+
+        return $followers;
     }
 
 
-    public function follow($username)
-    {
+    public function follow($username) {
         $profile = Profile::where('username', $username)->first();
 
         if (!$profile) {
@@ -55,8 +65,7 @@ class FollowingSystemService
         ];
     }
 
-    public function unfollow($username)
-    {
+    public function unfollow($username) {
         $profile = Profile::where('username', $username)->first();
 
         if (!$profile) {

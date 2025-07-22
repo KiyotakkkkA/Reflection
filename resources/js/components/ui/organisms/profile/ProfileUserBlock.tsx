@@ -63,7 +63,7 @@ export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = observer(({
 
     return (
         <div className="flex flex-col ml-4">
-            <RPanel className="flex flex-col px-4 py-4 w-[20rem]" shadowed bordered>
+            <RPanel className="flex flex-col px-4 py-4 w-[20rem] bg-white" shadowed bordered>
                 {updateAvatarError && (
                     <div className="mb-2 text-center bg-red-100 px-2 py-1 rounded-md border-red-500 border">
                         <p className="text-red-500">{updateAvatarError}</p>
@@ -198,7 +198,7 @@ export const ProfileUserBlock: React.FC<ProfileUserBlockProps> = observer(({
             </RPanel>
 
             {!isChanging && (
-                <RPanel className="mt-4 flex flex-col" shadowed bordered>
+                <RPanel className="mt-4 flex flex-col bg-white" shadowed bordered>
                     {data?.phone && (
                         <div className="flex items-center gap-2 ml-4">
                             <Icon icon="mdi:phone" width={24} height={24} />

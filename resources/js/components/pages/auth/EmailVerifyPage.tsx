@@ -132,7 +132,7 @@ const EmailVerification = () => {
                 {verifyEmailError && <div className="mb-2 w-[300px] text-center bg-red-100 px-2 py-1 rounded-md border-red-500 border">
                     <p className="text-red-500">{verifyEmailError}</p>
                 </div>}
-                <RPanel shadowed bordered className="w-[400px]">
+                <RPanel shadowed bordered className="justify-center items-center w-[400px] bg-white">
                     <form className="p-6" onSubmit={(e) => e.preventDefault()}>
                         <div className="flex justify-center gap-2 mb-6">
                             {code.map((digit, index) => (

@@ -34,20 +34,18 @@ class Profile extends Model
     }
 
     public function followers() {
-        return $this->belongsToMany(Profile::class, 'follow_profiles', 'user_profile_id', 'follower_profile_id');
+        return $this->belongsToMany(Profile::class, 'follow_profiles', 'to_profile_id', 'from_profile_id');
     }
 
     public function followings() {
-        return $this->belongsToMany(Profile::class, 'follow_profiles', 'follower_profile_id', 'user_profile_id');
+        return $this->belongsToMany(Profile::class, 'follow_profiles', 'from_profile_id', 'to_profile_id');
     }
 
-    public function getFollowersCountAttribute()
-    {
+    public function getFollowersCountAttribute() {
         return $this->attributes['followers_count'] ?? $this->followers()->count();
     }
 
-    public function getFollowingsCountAttribute()
-    {
+    public function getFollowingsCountAttribute() {
         return $this->attributes['followings_count'] ?? $this->followings()->count();
     }
 }

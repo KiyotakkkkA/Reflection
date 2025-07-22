@@ -191,8 +191,8 @@ const ProfileFollowersPage = observer(() => {
                     staticImages={staticImages}
                 />
                 <div className="grid grid-cols-4 gap-4 px-4 w-full">
-                    <div className={`${isChanging ? "col-span-3 col-start-2" : "col-span-4 col-start-1"} row-start-1 flex flex-col`}>
-                        <RPanel className="w-full" shadowed bordered>
+                    <div className={ `${isChanging ? "col-span-3 col-start-2" : "col-span-4 col-start-1"} row-start-1 flex flex-col`}>
+                        <RPanel className="w-full bg-white" shadowed bordered>
                             <ProfileFollowsBlock
                                 data={followers}
                                 isLoading={followersIsPending}
@@ -200,7 +200,7 @@ const ProfileFollowersPage = observer(() => {
                         </RPanel>
                     </div>
                     <div className={`${isChanging && userInHisProfile ? "col-span-1 col-start-1" : "hidden"} row-start-1 flex flex-col`}>
-                        <RPanel className="w-full" shadowed bordered>
+                        <RPanel className="w-full bg-white" shadowed bordered>
                             {isChanging && (
                                 <ProfileEditForm
                                     changingForm={changingForm}

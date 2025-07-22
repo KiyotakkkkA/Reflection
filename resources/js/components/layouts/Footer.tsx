@@ -4,7 +4,7 @@ import {
 
 const Footer = () => {
     return (
-        <footer className="mb-5">
+        <footer className="mb-5 bg-white">
             <div className="border-t border-gray-200 my-1"></div>
             <div className="flex justify-center items-center py-3">
                 <RLogo color="text-gray-500"/>

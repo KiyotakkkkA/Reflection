@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, memo } from 'react';
+import React, { useRef, memo } from 'react';
 import { Icon } from '@iconify/react';
 
 interface RAvatarProps {
@@ -19,12 +19,7 @@ const RAvatar: React.FC<RAvatarProps> = memo(({
     circle = false,
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [isLoading, setIsLoading] = useState(true);
     const borderRadiusClass = circle ? 'rounded-full' : 'rounded-md';
-
-    useEffect(() => {
-        setIsLoading(true);
-    }, [src]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.[0]) {
@@ -54,9 +49,7 @@ const RAvatar: React.FC<RAvatarProps> = memo(({
             >
                 <img
                     src={src}
-                    className={`w-full h-full object-cover ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}`}
-                    onLoad={() => setIsLoading(false)}
-                    onError={() => setIsLoading(false)}
+                    className={`w-full h-full object-cover`}
                 />
 
                 {isChanging && (

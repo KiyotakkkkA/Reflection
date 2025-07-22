@@ -107,7 +107,7 @@ export const api = {
         },
 
         follow: async (username: string) => {
-            const response = await axios.post(`/api/profile/${username}/follow`, { username });
+            const response = await axios.post(`/api/profile/follow`, { username });
             return response.data;
         },
         unfollow: async (username: string) => {

@@ -43,7 +43,7 @@ const PasswordResetPage = () => {
                 {resetPasswordInstruction && <div className="mb-2 w-[300px] text-center bg-green-100 px-2 py-1 rounded-md border-green-500 border">
                     <p className="text-green-500">{resetPasswordInstruction}</p>
                 </div>}
-                <RPanel shadowed bordered className="justify-center items-center">
+                <RPanel shadowed bordered className="justify-center items-center bg-white">
                     <form onSubmit={(e) => e.preventDefault()}>
                         <div className="mb-2">
                             <span className="text-md font-medium">Пароль</span>

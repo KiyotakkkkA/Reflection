@@ -28,7 +28,7 @@ const LoginPage = () => {
                 {error && <div className="mb-2 w-[300px] text-center bg-red-100 px-2 py-1 rounded-md border-red-500 border">
                     <p className="text-red-500">{error}</p>
                 </div>}
-                <RPanel shadowed bordered className="justify-center items-center">
+                <RPanel shadowed bordered className="justify-center items-center bg-white">
                     <form onSubmit={(e) => e.preventDefault()}>
                         <div className="mb-2">
                             <span className="text-md font-medium">Email</span>
